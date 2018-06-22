@@ -9,13 +9,27 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+        <!-- Link JQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
         <!-- Link style.css and gif.js -->
         <link rel="stylesheet" href="assets/css/style.css" type="text/css">
         <script src="assets/javascript/gif.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="container">
-            
+            <h2> Feeling a certain way? Find a GIF to express it! </h2> 
+            <div class="row button-container">
+
+            </div>
+            <form id="form">
+                <label for="emotion-input"> Add a New Emotion! </label>
+                <input type="text" id="emotion-input">
+                <input id="add-emotion" type="submit" value="submit">
+            </form>
+            <div id="gifs">
+
+            </div>
         </div>
     </body>
 
