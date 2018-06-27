@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     /* Button Categories that will be displayed up top. */
-    var emotionalGIFs = ["Happy", "Sad", "Angry", "Excited", "Celebrating", "Sleepy", "Active", "Working", "Confused", "In Love"];
+    var emotionalGIFs = ["Happy", "Sad", "Angry", "Excited", "Celebrating", "Sleepy", "Active", "Working", "Confused", "Love"];
 
     /* When 'MORE GIFS' is pressed, give more GIFs from that category. */
     var previouslyClicked = "";
@@ -12,7 +12,7 @@ $(document).ready(function() {
         var bcontainer = $(".button-container");
         bcontainer.empty();
         for (var i = 0; i < emotionalGIFs.length; i++){
-            var newColumn = $("<div class='col-2'>");
+            var newColumn = $("<div class='col-lg-2 col-md-4 col-sm-6'>");
             newColumn.append($("<button class='btn btn-info' value=" + emotionalGIFs[i] + "> " + emotionalGIFs[i] + "</button>"));
             bcontainer.append(newColumn);
         }
@@ -35,12 +35,19 @@ $(document).ready(function() {
             for (var i = 0; i < response.data.length; i++){
                 var gifDiv = $("<div class='col-lg-4 col-md-6 col-sm-12'>");
 
-                var gifRating = $("<p>").text("Rating : " + response.data[i].rating);
-                gifDiv.append(gifRating);
-
-                var gifImage = $("<img class='gif-image' value='still'>");
+                var card = $("<div class='card'>");
+                var cardHeader = $("<div class='card-header'>" + response.data[i].rating + "</div>");
+                var gifImage = $("<img class='card-img gif-image' value='still'>");
                 gifImage.attr("src", response.data[i].images.fixed_height_still.url);
-                gifDiv.append(gifImage);
+                var download = $("<a class='btn btn-success download' href=" + response.data[i].images.fixed_height.url + " target='_blank'> DOWNLOAD </a>");
+                var favorite = $("<button class='btn btn-success favorite' value=" + response.data[i].images.fixed_height.url + "> FAVORITE </button>")
+
+                card.append(cardHeader);
+                card.append(gifImage);
+                card.append(download);
+                card.append(favorite);
+
+                gifDiv.append(card);
 
                 $("#gifs").prepend(gifDiv);
 
@@ -68,12 +75,19 @@ $(document).ready(function() {
                 for (var i = 0; i < response.data.length; i++){
                     var gifDiv = $("<div class='col-lg-4 col-md-6 col-sm-12'>");
 
-                    var gifRating = $("<p>").text("Rating : " + response.data[i].rating);
-                    gifDiv.append(gifRating);
-
-                    var gifImage = $("<img class='gif-image' value='still'>");
+                    var card = $("<div class='card'>");
+                    var cardHeader = $("<div class='card-header'>" + response.data[i].rating + "</div>");
+                    var gifImage = $("<img class='card-img gif-image' value='still'>");
                     gifImage.attr("src", response.data[i].images.fixed_height_still.url);
-                    gifDiv.append(gifImage);
+                    var download = $("<a class='btn btn-success' href=" + response.data[i].images.fixed_height.url + " id='download' download> DOWNLOAD </a>");
+                    var favorite = $("<button class='btn btn-success' id='favorite'> FAVORITE </button>")
+
+                    card.append(cardHeader);
+                    card.append(gifImage);
+                    card.append(download);
+                    card.append(favorite);
+
+                    gifDiv.append(card);
 
                     $("#gifs").prepend(gifDiv);
 
@@ -90,7 +104,7 @@ $(document).ready(function() {
      */
     $(document).on("click", ".gif-image", function(){
         console.log($(this).attr("src"));
-        for (var i = 0; i < gifAmount; i++){
+        for (var i = 0; i < tenGIFs.length; i++){
             if ($(this).attr("value") == "still"){
                 if ($(this).attr("src") == tenGIFs[i].still){
                     $(this).attr("src", tenGIFs[i].animated);
@@ -116,6 +130,26 @@ $(document).ready(function() {
         emotionalGIFs.push(emotion);
         renderButtons();
     });
+
+    /* When the Favorite button is clicked,
+        Add the GIF into local storage.
+     */
+    $(document).on("click", ".favorite", function(){
+        var gifDiv = $("<div class='col-lg-4 col-md-6 col-sm-12'>");
+        console.log($(this).attr("value"));
+
+        var card = $("<div class='card'>");
+        var cardHeader = $("<div class='card-header'>" + previouslyClicked + "</div>");
+        var gifImage = $("<img class='card-img gif-image'>");
+        gifImage.attr("src", $(this).attr("value"));
+        
+        card.append(cardHeader);
+        card.append(gifImage);
+        
+        gifDiv.append(card);
+
+        $(".favorites").append(gifDiv);
+    })
 
     renderButtons();
 
