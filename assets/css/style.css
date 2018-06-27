@@ -5,6 +5,22 @@ h2 {
     text-align: center;
 }
 
+/* Favorite GIFs */
+
+.btn-danger {
+    float: right;
+}
+
+.fav-card {
+    margin: 15px;
+}
+
+.fav-gif {
+    padding: 20px;
+    margin: 0 auto;
+    width: 75%;
+}
+
 /* Button Container */
 
 .btn-info {
@@ -39,7 +55,7 @@ input {
 
 .card {
     height: 95%;
-    margin: 15px 0px;
+    margin: 15px;
 }
 
 .gif-image {

@@ -3,6 +3,9 @@ $(document).ready(function() {
     /* Button Categories that will be displayed up top. */
     var emotionalGIFs = ["Happy", "Sad", "Angry", "Excited", "Celebrating", "Sleepy", "Active", "Working", "Confused", "Love"];
 
+    /* Favorites Counter */
+    var numFavorites = localStorage.getItem("numFavorites");
+
     /* When 'MORE GIFS' is pressed, give more GIFs from that category. */
     var previouslyClicked = "";
     var gifAmount = 10;
@@ -15,6 +18,30 @@ $(document).ready(function() {
             var newColumn = $("<div class='col-lg-2 col-md-4 col-sm-6'>");
             newColumn.append($("<button class='btn btn-info' value=" + emotionalGIFs[i] + "> " + emotionalGIFs[i] + "</button>"));
             bcontainer.append(newColumn);
+        }
+    }
+
+    /* Display all favorites saved to localStorage */
+    var renderFavorites = function(){
+        $(".favorites").empty();
+
+        for (var i = 0; i < localStorage.getItem("numFavorites"); i++){
+            if (localStorage.getItem("fav-" + i) != null){
+                var gifDiv = $("<div class='col-lg-4 col-md-6 col-sm-12'>");
+                console.log(localStorage.getItem("fav-category-" + i));
+                
+                var card = $("<div class='card fav-card'>");
+                var cardHeader = $("<div class='card-header'>" + localStorage.getItem("fav-category-" + i) + " <button class='btn btn-danger delete-favorite' value=" + i + "> H </button> </div>");
+                var gifImage = $("<img class='card-img fav-gif'>");
+                gifImage.attr("src", localStorage.getItem("fav-" + i));
+                
+                card.append(cardHeader);
+                card.append(gifImage);
+                
+                gifDiv.append(card);
+        
+                $(".favorites").append(gifDiv);
+            }
         }
     }
 
@@ -79,8 +106,8 @@ $(document).ready(function() {
                     var cardHeader = $("<div class='card-header'>" + response.data[i].rating + "</div>");
                     var gifImage = $("<img class='card-img gif-image' value='still'>");
                     gifImage.attr("src", response.data[i].images.fixed_height_still.url);
-                    var download = $("<a class='btn btn-success' href=" + response.data[i].images.fixed_height.url + " id='download' download> DOWNLOAD </a>");
-                    var favorite = $("<button class='btn btn-success' id='favorite'> FAVORITE </button>")
+                    var download = $("<a class='btn btn-success download' href=" + response.data[i].images.fixed_height.url + " target='_blank'> DOWNLOAD </a>");
+                    var favorite = $("<button class='btn btn-success favorite' value=" + response.data[i].images.fixed_height.url + "> FAVORITE </button>")
 
                     card.append(cardHeader);
                     card.append(gifImage);
@@ -133,14 +160,15 @@ $(document).ready(function() {
 
     /* When the Favorite button is clicked,
         Add the GIF into local storage.
+        Add the Gif into the Favorites section.
      */
     $(document).on("click", ".favorite", function(){
         var gifDiv = $("<div class='col-lg-4 col-md-6 col-sm-12'>");
         console.log($(this).attr("value"));
 
-        var card = $("<div class='card'>");
-        var cardHeader = $("<div class='card-header'>" + previouslyClicked + "</div>");
-        var gifImage = $("<img class='card-img gif-image'>");
+        var card = $("<div class='card fav-card'>");
+        var cardHeader = $("<div class='card-header'>" + previouslyClicked + " <button class='btn btn-danger delete-favorite' value=" + numFavorites + "> H </button> </div>");
+        var gifImage = $("<img class='card-img fav-gif'>");
         gifImage.attr("src", $(this).attr("value"));
         
         card.append(cardHeader);
@@ -149,8 +177,28 @@ $(document).ready(function() {
         gifDiv.append(card);
 
         $(".favorites").append(gifDiv);
+
+        localStorage.setItem("fav-" + numFavorites, $(this).attr("value"));
+        localStorage.setItem("fav-category-" + numFavorites, previouslyClicked);
+
+        numFavorites ++;
+
+        localStorage.setItem("numFavorites", numFavorites);
+    })
+
+    /* When the Delete Favorite button is clicked,
+        Delete the Favorite from the Favorites section.
+        Delete the Favorite from the localStorage.
+     */
+    $(document).on("click", ".delete-favorite", function(){
+        localStorage.removeItem("fav-" + $(this).attr("value"));
+        localStorage.removeItem("fav-category-" + $(this).attr("value"));
+
+        renderFavorites();
     })
 
     renderButtons();
+
+    renderFavorites();
 
 });
