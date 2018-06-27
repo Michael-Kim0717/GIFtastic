@@ -31,10 +31,11 @@ $(document).ready(function() {
                 console.log(localStorage.getItem("fav-category-" + i));
                 
                 var card = $("<div class='card fav-card'>");
-                var cardHeader = $("<div class='card-header'>" + localStorage.getItem("fav-category-" + i) + " <button class='btn btn-danger delete-favorite' value=" + i + "> H </button> </div>");
+                var cardHeader = $("<div class='card-header'>" + localStorage.getItem("fav-category-" + i) + " <button class='btn btn-danger delete-favorite' value=" + i + "> <img class='btn-icon' src='https://cdn2.iconfinder.com/data/icons/apple-classic/100/Apple_classic_10Icon_5px_grid-02-512.png'> </button> </div>");
                 var gifImage = $("<img class='card-img fav-gif'>");
                 gifImage.attr("src", localStorage.getItem("fav-" + i));
-                
+                $(".button-icon").attr("src", "trashcan.png");
+
                 card.append(cardHeader);
                 card.append(gifImage);
                 
@@ -63,11 +64,11 @@ $(document).ready(function() {
                 var gifDiv = $("<div class='col-lg-4 col-md-6 col-sm-12'>");
 
                 var card = $("<div class='card'>");
-                var cardHeader = $("<div class='card-header'>" + response.data[i].rating + "</div>");
+                var cardHeader = $("<div class='card-header'>" + response.data[i].rating.toUpperCase() + "</div>");
                 var gifImage = $("<img class='card-img gif-image' value='still'>");
                 gifImage.attr("src", response.data[i].images.fixed_height_still.url);
-                var download = $("<a class='btn btn-success download' href=" + response.data[i].images.fixed_height.url + " target='_blank'> DOWNLOAD </a>");
-                var favorite = $("<button class='btn btn-success favorite' value=" + response.data[i].images.fixed_height.url + "> FAVORITE </button>")
+                var download = $("<a class='btn btn-light download' href=" + response.data[i].images.fixed_height.url + " target='_blank'> <img class='btn-icon' src='https://www.rti.com/hubfs/RTI_Oct2016/Images/icon-downloads-circle.svg?tu003d1522442086611'> </a>");
+                var favorite = $("<button class='btn btn-light favorite' value=" + response.data[i].images.fixed_height.url + "> <img class='btn-icon' src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/2000px-Gold_Star.svg.png'> </button>")
 
                 card.append(cardHeader);
                 card.append(gifImage);
@@ -103,11 +104,11 @@ $(document).ready(function() {
                     var gifDiv = $("<div class='col-lg-4 col-md-6 col-sm-12'>");
 
                     var card = $("<div class='card'>");
-                    var cardHeader = $("<div class='card-header'>" + response.data[i].rating + "</div>");
+                    var cardHeader = $("<div class='card-header'>" + response.data[i].rating.toUpperCase() + "</div>");
                     var gifImage = $("<img class='card-img gif-image' value='still'>");
                     gifImage.attr("src", response.data[i].images.fixed_height_still.url);
                     var download = $("<a class='btn btn-success download' href=" + response.data[i].images.fixed_height.url + " target='_blank'> DOWNLOAD </a>");
-                    var favorite = $("<button class='btn btn-success favorite' value=" + response.data[i].images.fixed_height.url + "> FAVORITE </button>")
+                    var favorite = $("<button class='btn btn-success favorite' value=" + response.data[i].images.fixed_height.url + "> <img class='btn-icon' src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/2000px-Gold_Star.svg.png'> </button>")
 
                     card.append(cardHeader);
                     card.append(gifImage);
@@ -167,7 +168,7 @@ $(document).ready(function() {
         console.log($(this).attr("value"));
 
         var card = $("<div class='card fav-card'>");
-        var cardHeader = $("<div class='card-header'>" + previouslyClicked + " <button class='btn btn-danger delete-favorite' value=" + numFavorites + "> H </button> </div>");
+        var cardHeader = $("<div class='card-header'>" + previouslyClicked + " <button class='btn btn-danger delete-favorite' value=" + numFavorites + "> <img class='btn-icon' src='https://cdn2.iconfinder.com/data/icons/apple-classic/100/Apple_classic_10Icon_5px_grid-02-512.png'> </button> </div>");
         var gifImage = $("<img class='card-img fav-gif'>");
         gifImage.attr("src", $(this).attr("value"));
         

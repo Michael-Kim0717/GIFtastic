@@ -1,14 +1,39 @@
 /* Body */
 
+body {
+    background-image: url("../images/background.jpg");
+}
+
 h2 {
+    color: white;
+    font-family: 'Pacifico', 'Courier New', Courier, monospace;
+    font-size: 2.5em;
+    letter-spacing: 0.1em;
     padding: 30px;
     text-align: center;
+    text-shadow: 3px 3px 3px black;
+
+   -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: black;
+}
+
+.card-header {
+    font-family: 'Pacifico', 'Courier New', Courier, monospace;
+    letter-spacing: 0.1em;
 }
 
 /* Favorite GIFs */
 
 .btn-danger {
     float: right;
+}
+
+.btn-icon {
+    width: 25px;
+}
+
+.favorites-header {
+    font-size: 2em;
 }
 
 .fav-card {
@@ -23,6 +48,12 @@ h2 {
 
 /* Button Container */
 
+.button-container {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
 .btn-info {
     margin: 10px 0px;
     width: 100%;
@@ -31,9 +62,11 @@ h2 {
 /* Form Container */
 
 form {
+    background-color: white;
     border: 1px solid black;
     border-radius: 5px;
     margin-top: 30px;
+    margin-bottom: 30px;
     padding: 20px;
 }
 
@@ -47,13 +80,22 @@ input {
     width: 30%;
 }
 
+#more-gifs {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    height: 75%;
+    width: 100%;
+}
+
 /* Gifs */
 
-.btn-success {
+.btn-light {
+    border: 1px solid black;
     width: 40%;
 }
 
 .card {
+    border: 1px solid black;
     height: 95%;
     margin: 15px;
 }
