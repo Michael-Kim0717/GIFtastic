@@ -14,4 +14,26 @@ h2 {
 
 /* Form Container */
 
+form {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 30px;
+    padding: 20px;
+    width: 50%;
+}
+
+input {
+    margin-top: 15px;
+    width: 100%;
+}
+
+#add-emotion {
+    margin-top: 20px;
+    width: 30%;
+}
+
 /* Gifs */
+
+p {
+    padding-top: 10px;
+}
